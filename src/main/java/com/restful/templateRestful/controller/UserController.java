@@ -1,5 +1,6 @@
 package com.restful.templateRestful.controller;
 
+import com.restful.templateRestful.configuration.Translator;
 import com.restful.templateRestful.dto.request.UserRequestDTO;
 import com.restful.templateRestful.dto.response.ResponseData;
 import com.restful.templateRestful.dto.response.ResponseError;
@@ -42,7 +43,7 @@ public class UserController {
     @PostMapping
     public ResponseSuccess addUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
         int result = userService.addUser(userRequestDTO);
-        return new ResponseSuccess(HttpStatus.CREATED, "Add user", result);
+        return new ResponseSuccess(HttpStatus.CREATED, Translator.toLocale("user.add.success"), result);
     }
 
     @PutMapping("/{userId}")
