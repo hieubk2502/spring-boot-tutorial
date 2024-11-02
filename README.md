@@ -1,1 +1,1 @@
-# spring-boot-tutorial
+mvn clean -DskipTests package -P dev

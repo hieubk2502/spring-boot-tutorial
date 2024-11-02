@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Tag(name = "User Controller")
 public class UserController {
 
     UserService userService;
@@ -59,6 +61,12 @@ public class UserController {
     @DeleteMapping("/{userId}")
     public ResponseSuccess deleteUser(@Min(1) @PathVariable("userId") int userId) {
         return new ResponseSuccess(HttpStatus.ACCEPTED, "User Delete");
+    }
+
+    @GetMapping("/test")
+    public ResponseSuccess getUser3(
+    ) {
+        return new ResponseSuccess(HttpStatus.OK, "NEW OBJECT");
     }
 
     @GetMapping
