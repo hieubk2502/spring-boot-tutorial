@@ -12,6 +12,6 @@ openapi:
   service:
     api-docs: api-service
     server: http://api-service.local
-    title: API Document
+    title: ${API_URL}
     version: 1.0.0
 
