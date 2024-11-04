@@ -5,7 +5,7 @@ import com.restful.templateRestful.dto.request.UserRequestDTO;
 import com.restful.templateRestful.dto.response.ResponseData;
 import com.restful.templateRestful.dto.response.ResponseError;
 import com.restful.templateRestful.dto.response.ResponseSuccess;
-import com.restful.templateRestful.service.impl.UserService;
+import com.restful.templateRestful.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -15,7 +15,9 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @Tag(name = "User Controller")
+@Slf4j
 public class UserController {
 
     UserService userService;
@@ -43,9 +46,16 @@ public class UserController {
             )
     })
     @PostMapping
-    public ResponseSuccess addUser(@Valid @RequestBody UserRequestDTO userRequestDTO) {
-        int result = userService.addUser(userRequestDTO);
-        return new ResponseSuccess(HttpStatus.CREATED, Translator.toLocale("user.add.success"), result);
+    public ResponseData<Long> addUser(@Valid @RequestBody UserRequestDTO user) {
+        log.info("Request add user, {} {}", user.getFirstName(), user.getLastName());
+
+        try {
+            long userId = userService.saveUser(user);
+            return new ResponseData<>(HttpStatus.CREATED.value(), Translator.toLocale("user.add.success"), userId);
+        } catch (Exception e) {
+            log.error("errorMessage={}", e.getMessage(), e.getCause());
+            return new ResponseError(HttpStatus.BAD_REQUEST.value(), "Add user fail");
+        }
     }
 
     @PutMapping("/{userId}")

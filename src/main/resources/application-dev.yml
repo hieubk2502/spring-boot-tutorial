@@ -2,6 +2,19 @@ spring:
   config:
     activate:
       on-profile: dev
+  devtools:
+    add-properties: true
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/postgres"
+    username: postgres
+    password: password
+  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
 
 springdoc:
   api-docs:
@@ -12,6 +25,6 @@ openapi:
   service:
     api-docs: api-service
     server: http://localhost:${server.port}
-    title: ${API_URL}
+    title: ${API_URL:Not Found}
     version: 1.0.0
 
