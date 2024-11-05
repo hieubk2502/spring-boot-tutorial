@@ -1,6 +1,7 @@
 package com.restful.templateRestful.service;
 
 import com.restful.templateRestful.dto.request.UserRequestDTO;
+import com.restful.templateRestful.dto.response.PageResponse;
 import com.restful.templateRestful.dto.response.UserDetailResponse;
 import com.restful.templateRestful.util.UserStatus;
 
@@ -20,14 +21,15 @@ public interface UserService {
 
     UserDetailResponse getUser(long userId);
 
-//    PageResponse<?> getAllUsersWithSortBy(int pageNo, int pageSize, String sortBy);
-//
-//    PageResponse<?> getAllUsersWithSortByMultipleColumns(int pageNo, int pageSize, String... sorts);
-//
-//    PageResponse<?> getAllUsersAndSearchWithPagingAndSorting(int pageNo, int pageSize, String search, String sortBy);
-//
-//    PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String sortBy, String address, String... search);
-//
+//    PageResponse getAllUsers(int pageNo, int pageSize);
+    PageResponse<?> getAllUsersWithSortBy(int pageNo, int pageSize, String sortBy);
+
+    PageResponse<?> getAllUsersWithSortByMultipleColumns(int pageNo, int pageSize, String... sorts);
+
+    PageResponse<?> getAllUsersAndSearchWithPagingAndSorting(int pageNo, int pageSize, String search, String sortBy);
+
+    PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String sortBy, String address, String... search);
+
 //    PageResponse<?> advanceSearchWithSpecifications(Pageable pageable, String[] user, String[] address);
 }
 
