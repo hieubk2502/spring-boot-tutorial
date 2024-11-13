@@ -13,3 +13,6 @@ Run image -> container:
 - `docker compose down`
 - `docker compose logs -tf ....`
 - `docker compose up`
+
+Kill port:
+- sudo kill -9 $(sudo lsof -t -i:5432)

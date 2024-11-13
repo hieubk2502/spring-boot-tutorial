@@ -1,5 +1,6 @@
 server:
-  port: 80
+  port: 8080
+#  https://stackoverflow:com/questions/25544849/java-net-bindexception-permission-denied-when-creating-a-serversocket-on-mac-os:
 spring:
   application:
     name: App
