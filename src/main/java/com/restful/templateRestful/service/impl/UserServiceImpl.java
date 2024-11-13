@@ -183,6 +183,7 @@ public class UserServiceImpl implements UserService {
                 log.info("sortBy: {}", sortBy);
                 // firstName:asc|desc
                 Pattern pattern = Pattern.compile("(\\w+?)(:)(.*)");
+//                                                        group1-group2-group3
                 Matcher matcher = pattern.matcher(sortBy);
                 if (matcher.find()) {
                     if (matcher.group(3).equalsIgnoreCase("asc")) {
@@ -205,9 +206,9 @@ public class UserServiceImpl implements UserService {
                 .phone(user.getPhone())
                 .build()).toList();
         return PageResponse.builder()
-//                .pageNo(pageNo)
-//                .pageSize(pageSize)
-//                .totalPage(users.getTotalPages())
+                .page(pageNo)
+                .size(pageSize)
+                .total(users.getTotalPages())
                 .items(response)
                 .build();
     }
