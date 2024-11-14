@@ -1,6 +1,5 @@
 package com.restful.templateRestful.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.restful.templateRestful.util.Gender;
 import com.restful.templateRestful.util.UserStatus;
@@ -37,5 +36,13 @@ public class UserDetailResponse implements Serializable {
     private String type;
 
     private UserStatus status;
+
+    public UserDetailResponse(Long id, String firstName, String lastName, String phone , String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+    }
 }
 

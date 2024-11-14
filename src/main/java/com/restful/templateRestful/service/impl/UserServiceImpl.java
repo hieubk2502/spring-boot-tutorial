@@ -8,6 +8,7 @@ import com.restful.templateRestful.dto.response.UserDetailResponse;
 import com.restful.templateRestful.exception.ResourceNotFoundException;
 import com.restful.templateRestful.model.Address;
 import com.restful.templateRestful.model.User;
+import com.restful.templateRestful.repository.SearchRepository;
 import com.restful.templateRestful.repository.UserRepository;
 import com.restful.templateRestful.service.UserService;
 import com.restful.templateRestful.util.UserStatus;
@@ -38,12 +39,12 @@ public class UserServiceImpl implements UserService {
 
     UserRepository userRepository;
 
-//    SearchRepository searchRepository;
+    SearchRepository searchRepository;
 
     @Override
     public int addUser(UserRequestDTO userRequestDTO) {
 
-        if (userRequestDTO.getFirstName().equals("HIEU")){
+        if (userRequestDTO.getFirstName().equals("HIEU")) {
             throw new ResourceNotFoundException("firstName: 'Hieu' not exist!");
         }
         return new Random().nextInt();
@@ -214,6 +215,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public PageResponse<?> getAllUsersWithSortByColumnsAndSearch(int pageNo, int pageSize, String search, String sortBy) {
+        return searchRepository.getAllUsersWithSortByColumnAndSearch(pageNo, pageSize, search, sortBy);
+    }
+
+    @Override
     public PageResponse<?> getAllUsersAndSearchWithPagingAndSorting(int pageNo, int pageSize, String search, String sortBy) {
         return null;
     }
@@ -222,16 +228,6 @@ public class UserServiceImpl implements UserService {
     public PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String sortBy, String address, String... search) {
         return null;
     }
-
-//    @Override
-//    public PageResponse<?> getAllUsersAndSearchWithPagingAndSorting(int pageNo, int pageSize, String search, String sort) {
-//        return searchRepository.searchUser(pageNo, pageSize, search, sort);
-//    }
-//
-//    @Override
-//    public PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String sortBy, String address, String... search) {
-//        return searchRepository.searchUserByCriteria(pageNo, pageSize, sortBy, address, search);
-//    }
 
     private Set<Address> convertToAddress(Set<AddressDTO> addresses) {
         Set<Address> result = new HashSet<>();
