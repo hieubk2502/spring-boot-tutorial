@@ -58,11 +58,11 @@ public class SearchRepository {
 
         // Get list of users
         Query selectQuery = entityManager.createQuery(sqlQuery.toString());
-//        if (StringUtils.hasLength(search)) {
-//            selectQuery.setParameter("firstName", String.format(LIKE_FORMAT, search));
-//            selectQuery.setParameter("lastName", String.format(LIKE_FORMAT, search));
-//            selectQuery.setParameter("email", String.format(LIKE_FORMAT, search));
-//        }
+        if (StringUtils.hasLength(search)) {
+            selectQuery.setParameter("firstName", String.format(LIKE_FORMAT, search));
+            selectQuery.setParameter("lastName", String.format(LIKE_FORMAT, search));
+            selectQuery.setParameter("email", String.format(LIKE_FORMAT, search));
+        }
         selectQuery.setFirstResult(pageNo);
         selectQuery.setMaxResults(pageSize);
         List<?> users = selectQuery.getResultList();
