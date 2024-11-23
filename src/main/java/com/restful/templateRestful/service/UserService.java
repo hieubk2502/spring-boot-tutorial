@@ -9,8 +9,6 @@ import java.awt.print.Pageable;
 
 public interface UserService {
 
-    int addUser(UserRequestDTO userRequestDTO);
-
     long saveUser(UserRequestDTO request);
 
     void updateUser(long userId, UserRequestDTO request);
@@ -27,10 +25,8 @@ public interface UserService {
 
     PageResponse<?> getAllUsersWithSortByColumnsAndSearch(int pageNo, int pageSize, String search, String sortBy);
 
-    PageResponse<?> getAllUsersAndSearchWithPagingAndSorting(int pageNo, int pageSize, String search, String sortBy);
+    PageResponse<?> getAllUsersAndSearchWithPagingAndSorting(int pageNo, int pageSize,String address, String sortBy, String... search);
 
-    PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String sortBy, String address, String... search);
+    PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String sortBy, String... search);
 
-//    PageResponse<?> advanceSearchWithSpecifications(Pageable pageable, String[] user, String[] address);
 }
-

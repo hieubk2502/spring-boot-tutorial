@@ -11,6 +11,7 @@ import com.restful.templateRestful.model.User;
 import com.restful.templateRestful.repository.SearchRepository;
 import com.restful.templateRestful.repository.UserRepository;
 import com.restful.templateRestful.service.UserService;
+import com.restful.templateRestful.util.AppConst;
 import com.restful.templateRestful.util.UserStatus;
 import com.restful.templateRestful.util.UserType;
 import lombok.AccessLevel;
@@ -41,14 +42,6 @@ public class UserServiceImpl implements UserService {
 
     SearchRepository searchRepository;
 
-    @Override
-    public int addUser(UserRequestDTO userRequestDTO) {
-
-        if (userRequestDTO.getFirstName().equals("HIEU")) {
-            throw new ResourceNotFoundException("firstName: 'Hieu' not exist!");
-        }
-        return new Random().nextInt();
-    }
 
     @Override
     public long saveUser(UserRequestDTO request) {
@@ -183,7 +176,7 @@ public class UserServiceImpl implements UserService {
             for (String sortBy : sorts) {
                 log.info("sortBy: {}", sortBy);
                 // firstName:asc|desc
-                Pattern pattern = Pattern.compile("(\\w+?)(:)(.*)");
+                Pattern pattern = Pattern.compile(SORT_BY);
 //                                                        group1-group2-group3
                 Matcher matcher = pattern.matcher(sortBy);
                 if (matcher.find()) {
@@ -220,12 +213,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageResponse<?> getAllUsersAndSearchWithPagingAndSorting(int pageNo, int pageSize, String search, String sortBy) {
-        return null;
+    public PageResponse<?> getAllUsersAndSearchWithPagingAndSorting(int pageNo, int pageSize, String address, String sortBy, String... search) {
+        return searchRepository.searchUser(pageNo, pageSize, address, sortBy, search);
     }
 
     @Override
-    public PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String sortBy, String address, String... search) {
+    public PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String sortBy, String... search) {
+
+        log.info("Search user with search={} and sortBy={}", search, sortBy);
+
+
+        if (search.length > 0) {
+
+        }
+
         return null;
     }
 
