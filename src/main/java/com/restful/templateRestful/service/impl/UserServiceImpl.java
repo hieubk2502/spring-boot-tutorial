@@ -41,14 +41,6 @@ public class UserServiceImpl implements UserService {
 
     SearchRepository searchRepository;
 
-    @Override
-    public int addUser(UserRequestDTO userRequestDTO) {
-
-        if (userRequestDTO.getFirstName().equals("HIEU")) {
-            throw new ResourceNotFoundException("firstName: 'Hieu' not exist!");
-        }
-        return new Random().nextInt();
-    }
 
     @Override
     public long saveUser(UserRequestDTO request) {
@@ -220,12 +212,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PageResponse<?> getAllUsersAndSearchWithPagingAndSorting(int pageNo, int pageSize, String search, String sortBy) {
-        return null;
+    public PageResponse<?> getAllUsersAndSearchWithPagingAndSorting(int pageNo, int pageSize, String address, String sortBy, String... search) {
+        return searchRepository.searchUser(pageNo, pageSize, address, sortBy, search);
     }
 
     @Override
-    public PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String sortBy, String address, String... search) {
+    public PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String sortBy, String... search) {
+
+        log.info("Search user with search={} and sortBy={}", search, sortBy);
+
+
+        if (search.length > 0) {
+
+        }
+
         return null;
     }
 
