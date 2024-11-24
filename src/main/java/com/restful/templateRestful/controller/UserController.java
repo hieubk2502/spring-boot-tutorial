@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -166,5 +167,16 @@ public class UserController {
 
         log.info("Request advance search query by criteria");
         return new ResponseData<>(HttpStatus.OK.value(), "users", userService.advanceSearchWithCriteria(pageNo, pageSize, sortBy, search));
+    }
+
+    @Operation(summary = "Advance search query by specification", description = "Send a request via this API to get user list by pageNo, pageSize and sort by multiple column")
+    @GetMapping("/advance-search-with-specification")
+    public ResponseData<?> advanceSearchWithSpecification(
+            Pageable pageable,
+            @RequestParam(required = false) String[] user,
+            @RequestParam(required = false) String[] address) {
+
+        log.info("Request advance search query by criteria");
+        return new ResponseData<>(HttpStatus.OK.value(), "users", userService.advanceSearchWithSpecification(pageable, user, address));
     }
 }

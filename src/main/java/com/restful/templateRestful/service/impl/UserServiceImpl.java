@@ -10,8 +10,10 @@ import com.restful.templateRestful.model.Address;
 import com.restful.templateRestful.model.User;
 import com.restful.templateRestful.repository.SearchRepository;
 import com.restful.templateRestful.repository.UserRepository;
+import com.restful.templateRestful.repository.specification.UserSpecificationsBuilder;
 import com.restful.templateRestful.service.UserService;
 import com.restful.templateRestful.util.AppConst;
+import com.restful.templateRestful.util.Gender;
 import com.restful.templateRestful.util.UserStatus;
 import com.restful.templateRestful.util.UserType;
 import lombok.AccessLevel;
@@ -22,6 +24,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -29,6 +32,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.restful.templateRestful.util.AppConst.SEARCH_SPEC_OPERATOR;
 import static com.restful.templateRestful.util.AppConst.SORT_BY;
 
 @Service
@@ -221,13 +225,56 @@ public class UserServiceImpl implements UserService {
     public PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String sortBy, String... search) {
 
         log.info("Search user with search={} and sortBy={}", search, sortBy);
+        return null;
+    }
+
+    @Override
+    public PageResponse<?> advanceSearchWithSpecification(Pageable pageable, String[] user, String[] address) {
+
+        Page<User> users = null;
+
+        List<User> lists = new ArrayList<>();
+
+        if (user != null && address != null) {
+            // tim kiem tren user join address
+            return searchRepository.getUserJoinAddressSpecification(pageable, user, address);
+
+        } else if (user != null) {
+            // tim kien tren user table, k can join
+            UserSpecificationsBuilder builder = new UserSpecificationsBuilder();
+
+            for (String s : user) {
+                Pattern pattern = Pattern.compile(SEARCH_SPEC_OPERATOR);
+                Matcher matcher = pattern.matcher(s);
+                if (matcher.find()) {
+                    builder.with(matcher.group(1), matcher.group(2), matcher.group(3), matcher.group(4), matcher.group(5));
+                }
+            }
+            lists = userRepository.findAll(builder.build());
+            return PageResponse.builder()
+                    .page(pageable.getPageNumber())
+                    .size(pageable.getPageSize())
+                    .total(users.getTotalPages())
+                    .items(lists)
+                    .build();
 
 
-        if (search.length > 0) {
+        } else if (address != null) {
+
+        } else {
+            users = userRepository.findAll(pageable);
+
+
 
         }
 
-        return null;
+        return PageResponse.builder()
+                .page(pageable.getPageNumber())
+                .size(pageable.getPageSize())
+//                .total(users.getTotalPages())
+//                .items(users.stream().toList())
+                .items(lists)
+                .build();
     }
 
     private Set<Address> convertToAddress(Set<AddressDTO> addresses) {

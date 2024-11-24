@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "847d8b78-3860-4f6a-a7ef-f133193b4f5b",
+		"name": "TayJavaSource",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26428519"
+	},
+	"item": [
+		{
+			"name": "user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Tran\",\n    \"lastName\": \"Hieu\",\n    \"phone\": \"0912345678\",\n    \"email\": \"hieu@gmail.com\",\n    \"dateOfBirth\": \"2024/11/11\",\n    \"status\": \"ACTIVE\",\n    \"gender\": \"male\",\n    \"username\": \"hieutran11\",\n    \"password\": \"123456\",\n    \"type\": \"OWNER\",\n    \"addresses\": [\n        {\n            \"apartmentNumber\": \"28\",\n            \"floor\": \"Quang Am\",\n            \"building\": \"building_1\",\n            \"streetNumber\": \"6\",\n            \"street\": \"street_1\",\n            \"city\": \"PL\",\n            \"country\": \"VN\",\n            \"addressType\": 1\n        }\n    ],\n    \"statusMethod\": \"ACTIVE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}/user",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/list",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get list use page size sort",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/list",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get list custom",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/list",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list-user-and-search-with-paging-and-sorting",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/user/list-user-and-search-with-paging-and-sorting?pageNo=1&pageSize=10&sorts=id:desc&search=firstName:hieu",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"user",
+						"list-user-and-search-with-paging-and-sorting"
+					],
+					"query": [
+						{
+							"key": "pageNo",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "sorts",
+							"value": "id:desc"
+						},
+						{
+							"key": "search",
+							"value": "firstName:hieu"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "advance-search-with-specification",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/user/advance-search-with-specification?page=0&size=10",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"user",
+						"advance-search-with-specification"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "sorts",
+							"value": "id:desc",
+							"disabled": true
+						},
+						{
+							"key": "user",
+							"value": "firstName~T",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
