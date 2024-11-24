@@ -4,8 +4,7 @@ import com.restful.templateRestful.dto.request.UserRequestDTO;
 import com.restful.templateRestful.dto.response.PageResponse;
 import com.restful.templateRestful.dto.response.UserDetailResponse;
 import com.restful.templateRestful.util.UserStatus;
-
-import java.awt.print.Pageable;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 
@@ -29,4 +28,5 @@ public interface UserService {
 
     PageResponse<?> advanceSearchWithCriteria(int pageNo, int pageSize, String sortBy, String... search);
 
+    PageResponse<?> advanceSearchWithSpecification(Pageable pageable, String[] user, String[] address);
 }
