@@ -16,3 +16,15 @@ Run image -> container:
 
 Kill port:
 - sudo kill -9 $(sudo lsof -t -i:5432)
+
+// Send email
+
+Step 1: Turn on 2 FA https://myaccount.google.com/signinoptions/two-step-verification/enroll-welcome
+Step 2: Create app with password: https://myaccount.google.com/apppasswords
+Step 3: Gan thong tin vao mail sender
+```
+spring.mail.username=xxx
+spring.mail.password=xxx
+```
+
+
