@@ -156,6 +156,44 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "send-email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/user/advance-search-with-specification?page=0&size=10",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"user",
+						"advance-search-with-specification"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						},
+						{
+							"key": "sorts",
+							"value": "id:desc",
+							"disabled": true
+						},
+						{
+							"key": "user",
+							"value": "firstName~T",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
